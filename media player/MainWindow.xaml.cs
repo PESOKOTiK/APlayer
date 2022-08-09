@@ -192,7 +192,9 @@ namespace media_player
                 {
                     if (dura.Maximum > 0 && (dura.Maximum - dura.Value) > 5)
                     {
+                        playerr.Pause();
                         dura.Value += 5;
+                        playerr.Play();
                     }
                     else
                     {
@@ -203,7 +205,9 @@ namespace media_player
                 {
                     if (dura.Maximum > 0 && (dura.Maximum - dura.Value) > 0)
                     {
+                        playerr.Pause();
                         dura.Value -= 5;
+                        playerr.Play();
                     }
                     else
                     {
