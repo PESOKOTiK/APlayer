@@ -17,7 +17,7 @@ namespace media_player
             InitializeComponent();
             playerr.LoadedBehavior = MediaState.Manual;
             playerr.UnloadedBehavior = MediaState.Manual;
-            playerr.Volume = 0.5;
+            playerr.Volume = 0.2;
             //Hint.Visibility = Visibility.Hidden;
         }
 
@@ -64,7 +64,7 @@ namespace media_player
             if (e.RightButton == MouseButtonState.Pressed)
             {
                 OpenFileDialog openFileDialog = new OpenFileDialog();
-                openFileDialog.Filter = "mp4 videos|*.mp4|mp3 audio|*.mp3|jpg images|*.mp4|png image|*.png|avi videos|*.avi|mkv videos|*.mkv|All files (*.*)|*.*";
+                openFileDialog.Filter = "mp4 videos|*.mp4|mp3 audio|*.mp3|jpg images|*.jpg|png image|*.png|avi videos|*.avi|mkv videos|*.mkv|All files (*.*)|*.*";
                 openFileDialog.ShowDialog();
                 try
                 {
