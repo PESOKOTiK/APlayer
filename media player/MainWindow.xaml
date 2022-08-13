@@ -10,7 +10,6 @@
         ResizeMode="CanResizeWithGrip"
         BorderThickness="0"
         AllowsTransparency="True"
-        Icon="C:\Users\theax\source\repos\media player\media player\ico.ico"
         MouseDown="playerr_MouseDown"
         Keyboard.KeyDown="Window_KeyDown"
         MouseLeftButtonDown="DockPanel_MouseLeftButtonDown">
