@@ -184,6 +184,20 @@ namespace media_player
                         dura.Value = dura.Maximum;
                     }
                 }
+                if (e.Key == Key.Space)
+                {
+                    if (pausebtn.Content == "▶")
+                    {
+                        pausebtn.Content = "⏸";
+                        playerr.Play();
+                    }
+                    else
+                    {
+                        pausebtn.Content = "▶";
+
+                        playerr.Pause();
+                    }
+                }
                 if (e.Key == Key.Left)
                 {
                     if (dura.Maximum > 0 && (dura.Maximum - dura.Value) > 0)
