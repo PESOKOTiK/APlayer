@@ -64,7 +64,7 @@ namespace media_player
             if (e.RightButton == MouseButtonState.Pressed)
             {
                 OpenFileDialog openFileDialog = new OpenFileDialog();
-                openFileDialog.Filter = "mp4 videos|*.mp4|avi videos|*.avi|mkv videos|*.mkv|All files (*.*)|*.*";
+                openFileDialog.Filter = "mp4 videos|*.mp4|mp3 audio|*.mp3|jpg images|*.mp4|png image|*.png|avi videos|*.avi|mkv videos|*.mkv|All files (*.*)|*.*";
                 openFileDialog.ShowDialog();
                 try
                 {
@@ -95,17 +95,20 @@ namespace media_player
 
         private void playerr_MediaOpened(object sender, RoutedEventArgs e)
         {
-            dura.Maximum = playerr.NaturalDuration.TimeSpan.TotalSeconds;
-            maxTime.Text = playerr.NaturalDuration.TimeSpan.ToString() + "  ";
-            isvid = true;
+            if(playerr.NaturalDuration.HasTimeSpan)
+            {
+                dura.Maximum = playerr.NaturalDuration.TimeSpan.TotalSeconds;
+                maxTime.Text = playerr.NaturalDuration.TimeSpan.ToString() + "  ";
+                isvid = true;
 
-            TotalTime = playerr.NaturalDuration.TimeSpan;
+                TotalTime = playerr.NaturalDuration.TimeSpan;
 
-            // Create a timer that will update the counters and the time slider
-            var timerVideoTime = new DispatcherTimer();
-            timerVideoTime.Interval = TimeSpan.FromSeconds(1);
-            timerVideoTime.Tick += new EventHandler(timer_Tick);
-            timerVideoTime.Start();
+                // Create a timer that will update the counters and the time slider
+                var timerVideoTime = new DispatcherTimer();
+                timerVideoTime.Interval = TimeSpan.FromSeconds(1);
+                timerVideoTime.Tick += new EventHandler(timer_Tick);
+                timerVideoTime.Start();
+            }
 
         }
 
@@ -133,12 +136,15 @@ namespace media_player
         void timer_Tick(object sender, EventArgs e)
         {
             // Check if the movie finished calculate it's total time
-            if (playerr.NaturalDuration.TimeSpan.TotalSeconds > 0)
+            if(playerr.NaturalDuration.HasTimeSpan)
             {
-                if (TotalTime.TotalSeconds > 0)
+                if (playerr.NaturalDuration.TimeSpan.TotalSeconds > 0)
                 {
-                    // Updating time slider
-                    dura.Value = playerr.Position.TotalSeconds;
+                    if (TotalTime.TotalSeconds > 0)
+                    {
+                        // Updating time slider
+                        dura.Value = playerr.Position.TotalSeconds;
+                    }
                 }
             }
         }
