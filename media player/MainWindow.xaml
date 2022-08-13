@@ -118,6 +118,7 @@
                 x:Name="dura"
                 TickFrequency="60"
                 TickPlacement="BottomRight"
+                Keyboard.KeyDown="Window_KeyDown"
                 ValueChanged="dura_ValueChanged"></Slider>
         </DockPanel>
         <DockPanel Grid.Row="3">
@@ -158,10 +159,12 @@
                     Minimum="0"
                     TickFrequency="0.05"
                     Width="100"
+                    x:Name="volslider"
                     Background="Transparent"
                     Foreground="#f1f2f2"
                     Margin="0 5 0 0"
                     HorizontalAlignment="Left"
+                    Keyboard.KeyDown="Window_KeyDown"
                     Value="{Binding ElementName=playerr, Path=Volume, Mode=TwoWay}"
                     />
             <TextBlock DockPanel.Dock="Right" Width="125"/>

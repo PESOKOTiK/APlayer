@@ -1,21 +1,8 @@
 ﻿using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 
 namespace media_player
@@ -43,7 +30,7 @@ namespace media_player
         //is fullscreen?
         private void Pause_Click(object sender, RoutedEventArgs e)
         {
-            if(pausebtn.Content == "▶")
+            if (pausebtn.Content == "▶")
             {
                 pausebtn.Content = "⏸";
                 playerr.Play();
@@ -51,7 +38,7 @@ namespace media_player
             else
             {
                 pausebtn.Content = "▶";
-                
+
                 playerr.Pause();
             }
         }
@@ -74,22 +61,18 @@ namespace media_player
 
         private void playerr_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if(e.RightButton==MouseButtonState.Pressed)
+            if (e.RightButton == MouseButtonState.Pressed)
             {
                 OpenFileDialog openFileDialog = new OpenFileDialog();
-                openFileDialog.Filter= "mp4 videos|*.mp4|avi videos|*.avi|mkv videos|*.mkv|All files (*.*)|*.*";
+                openFileDialog.Filter = "mp4 videos|*.mp4|avi videos|*.avi|mkv videos|*.mkv|All files (*.*)|*.*";
                 openFileDialog.ShowDialog();
                 try
                 {
                     playerr.Source = new Uri(openFileDialog.FileName);
                     playerr.Position = TimeSpan.Zero;
-                    
                     playerr.Play();
-                    
-                        
-                    
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     MessageBox.Show("no file selected, press right mouse button to select");
                 }
@@ -113,7 +96,7 @@ namespace media_player
         private void playerr_MediaOpened(object sender, RoutedEventArgs e)
         {
             dura.Maximum = playerr.NaturalDuration.TimeSpan.TotalSeconds;
-            maxTime.Text = playerr.NaturalDuration.TimeSpan.ToString()+"  ";
+            maxTime.Text = playerr.NaturalDuration.TimeSpan.ToString() + "  ";
             isvid = true;
 
             TotalTime = playerr.NaturalDuration.TimeSpan;
@@ -130,8 +113,8 @@ namespace media_player
         {
             if (isvid)
             {
-                
-                if(Mouse.LeftButton==MouseButtonState.Pressed)
+
+                if (Mouse.LeftButton == MouseButtonState.Pressed)
                 {
                     //Thread.Sleep(130);
                     playerr.Pause();
@@ -144,7 +127,7 @@ namespace media_player
                     playerr.Position = TimeSpan.FromSeconds(dura.Value);
                     curTime.Text = playerr.Position.ToString(@"hh\:mm\:ss");
                 }
-                
+
             }
         }
         void timer_Tick(object sender, EventArgs e)
@@ -162,7 +145,7 @@ namespace media_player
 
         private void FullScreen_Click(object sender, RoutedEventArgs e)
         {
-            if(!ismax)
+            if (!ismax)
             {
                 this.WindowState = WindowState.Maximized;
                 ismax = true;
@@ -186,7 +169,7 @@ namespace media_player
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            if(isvid)
+            if (isvid)
             {
                 if (e.Key == Key.Right)
                 {
@@ -212,6 +195,28 @@ namespace media_player
                     else
                     {
                         dura.Value = 0;
+                    }
+                }
+                if (e.Key == Key.Down)
+                {
+                    if (volslider.Value >= 0.05)
+                    {
+                        volslider.Value -= 0.05;
+                    }
+                    else
+                    {
+                        volslider.Value = 0;
+                    }
+                }
+                if (e.Key == Key.Up)
+                {
+                    if (volslider.Value <= 0.95)
+                    {
+                        volslider.Value += 0.05;
+                    }
+                    else
+                    {
+                        volslider.Value = 1;
                     }
                 }
             }
