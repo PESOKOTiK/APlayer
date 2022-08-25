@@ -1,9 +1,11 @@
-﻿using Microsoft.Win32;
+﻿
+using Microsoft.Win32;
 using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
+using System.Windows.Media.Imaging;
 
 namespace media_player
 {
@@ -14,11 +16,26 @@ namespace media_player
     {
         public MainWindow()
         {
+
             InitializeComponent();
+            try
+            {
+                BitmapImage bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                Uri icon = new Uri("ico.ico", UriKind.RelativeOrAbsolute);
+                bitmap.UriSource = icon;
+                bitmap.EndInit();
+                mainwindow.Icon = bitmap;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
             playerr.LoadedBehavior = MediaState.Manual;
             playerr.UnloadedBehavior = MediaState.Manual;
-            playerr.Volume = 0.2;
+            playerr.Volume = 0.15;
             //Hint.Visibility = Visibility.Hidden;
+
         }
 
 
@@ -43,28 +60,13 @@ namespace media_player
             }
         }
 
-        //private void playerr_Loaded(object sender, RoutedEventArgs e)
-        //{
-        //    OpenFileDialog openFileDialog = new OpenFileDialog();
-        //    openFileDialog.Filter = "mp4 videos|*.mp4|All files (*.*)|*.*";
-        //    openFileDialog.ShowDialog();
-        //    try
-        //    {
-        //        playerr.Source = new Uri(openFileDialog.FileName);
-        //        playerr.Position = TimeSpan.Zero;
-        //    }
-        //    catch
-        //    {
-        //        MessageBox.Show("no file selected, press right mouse button to select");
-        //    }
-        //}
 
         private void playerr_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.RightButton == MouseButtonState.Pressed)
             {
                 OpenFileDialog openFileDialog = new OpenFileDialog();
-                openFileDialog.Filter = "mp4 videos|*.mp4|mp3 audio|*.mp3|jpg images|*.jpg|png image|*.png|avi videos|*.avi|mkv videos|*.mkv|All files (*.*)|*.*";
+                openFileDialog.Filter = "mp4 videos|*.mp4|mp3 audio|*.mp3|jpg images|*.jpg|png images|*.png|avi videos|*.avi|mkv videos|*.mkv|All files (*.*)|*.*";
                 openFileDialog.ShowDialog();
                 try
                 {
@@ -72,7 +74,7 @@ namespace media_player
                     playerr.Position = TimeSpan.Zero;
                     playerr.Play();
                 }
-                catch (Exception ex)
+                catch
                 {
                     MessageBox.Show("no file selected, press right mouse button to select");
                 }
@@ -95,7 +97,7 @@ namespace media_player
 
         private void playerr_MediaOpened(object sender, RoutedEventArgs e)
         {
-            if(playerr.NaturalDuration.HasTimeSpan)
+            if (playerr.NaturalDuration.HasTimeSpan)
             {
                 dura.Maximum = playerr.NaturalDuration.TimeSpan.TotalSeconds;
                 maxTime.Text = playerr.NaturalDuration.TimeSpan.ToString() + "  ";
@@ -117,7 +119,7 @@ namespace media_player
             if (isvid)
             {
 
-                if (Mouse.LeftButton == MouseButtonState.Pressed)
+                if (Mouse.LeftButton == MouseButtonState.Pressed && dura.IsMouseOver)
                 {
                     //Thread.Sleep(130);
                     playerr.Pause();
@@ -136,7 +138,7 @@ namespace media_player
         void timer_Tick(object sender, EventArgs e)
         {
             // Check if the movie finished calculate it's total time
-            if(playerr.NaturalDuration.HasTimeSpan)
+            if (playerr.NaturalDuration.HasTimeSpan)
             {
                 if (playerr.NaturalDuration.TimeSpan.TotalSeconds > 0)
                 {
@@ -241,5 +243,7 @@ namespace media_player
                 }
             }
         }
+
     }
 }
+

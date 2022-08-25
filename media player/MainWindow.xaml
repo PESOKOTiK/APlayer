@@ -4,40 +4,40 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:media_player"
+        x:Name="mainwindow"
         mc:Ignorable="d"
-         Height="450" Width="800" Background="#121215"
+        Height="450" Width="800" Background="#121215"
         WindowStyle="None"
         ResizeMode="CanResizeWithGrip"
-        BorderThickness="0"
         AllowsTransparency="True"
         MouseDown="playerr_MouseDown"
         Keyboard.KeyDown="Window_KeyDown"
         MouseLeftButtonDown="DockPanel_MouseLeftButtonDown">
     <Window.Resources>
         <Style x:Key="SliderThumbStyle" TargetType="Thumb">
-                <Setter Property="SnapsToDevicePixels" Value="true"/>
-                <Setter Property="OverridesDefaultStyle" Value="false"/>
-                <Setter Property="Height" Value="18"/>
-                <Setter Property="Width" Value="18"/>
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="Thumb">
-                            <Ellipse  Stroke="Black"
+            <Setter Property="SnapsToDevicePixels" Value="true"/>
+            <Setter Property="OverridesDefaultStyle" Value="false"/>
+            <Setter Property="Height" Value="18"/>
+            <Setter Property="Width" Value="18"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Thumb">
+                        <Ellipse  Stroke="Black"
                           StrokeThickness="1"
                           Name="Ellipse" 
                           Fill="#010113" />
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter TargetName="Ellipse" Property="Fill" Value="#121213"/>
-                                </Trigger>
-                                <Trigger Property="IsEnabled" Value="false">
-                                    <Setter TargetName="Ellipse" Property="Fill" Value="Gray"/>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Ellipse" Property="Fill" Value="#121213"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter TargetName="Ellipse" Property="Fill" Value="Gray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
         <Style TargetType="Slider" x:Key="AppSliderStyle">
             <Setter Property="OverridesDefaultStyle" Value="true"/>
@@ -80,10 +80,11 @@
             </Setter>
         </Style>
     </Window.Resources>
-    <Grid>
+    <Grid Keyboard.KeyDown="Window_KeyDown"
+          x:Name="WindowWidth">
         <Grid.RowDefinitions>
             <RowDefinition Height="30"></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition x:Name="Gridd"></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
         </Grid.RowDefinitions>
@@ -119,7 +120,7 @@
             <TextBlock Background="Transparent"
                        Foreground="#a2a2a3"
                        Text="{Binding ElementName=playerr, Path=Source}">
-                
+
             </TextBlock>
             <Button DockPanel.Dock="Right"
                     Content="⛶"
@@ -157,18 +158,14 @@
                    Foreground="#454545" FontSize="25"/>
         <MediaElement x:Name="playerr"
                       Grid.Row="1"
+                      Keyboard.KeyDown="Window_KeyDown"
                       MediaOpened="playerr_MediaOpened"
                       ToolTip="press right mouse button to open new video"
                       MouseDown="playerr_MouseDown">
-            <!--Loaded="playerr_Loaded"-->
-                      
-            
+
+
+
         </MediaElement >
-        <!--<DockPanel Grid.Row="1">
-            <Slider Minimum="0"
-                    x:Name="dura"
-                    Value="{Binding ElementName=playerr,Path=Position.Seconds, Mode=OneWay}" Maximum="30"></Slider>
-        </DockPanel>-->
         <DockPanel Grid.Row="2">
             <TextBlock DockPanel.Dock="Right"
                        x:Name="maxTime"
@@ -180,17 +177,15 @@
                        Foreground="#f2f2f3"
                        />
             <Slider
-                Style="{StaticResource AppSliderStyle}"
                 Minimum="0"
                 x:Name="dura"
-                SmallChange="5"
-                Interval="300"
                 TickFrequency="60"
                 TickPlacement="BottomRight"
+                SmallChange="5"
+                Interval="100"
+                Style="{StaticResource AppSliderStyle}"
                 Keyboard.KeyDown="Window_KeyDown"
-                ValueChanged="dura_ValueChanged">
-                
-            </Slider>
+                ValueChanged="dura_ValueChanged"></Slider>
         </DockPanel>
         <DockPanel Grid.Row="3">
             <Button Content="🔄"
@@ -228,19 +223,20 @@
                        Margin="10 0 0 0"/>
             <Slider Maximum="1"
                     Minimum="0"
-                    Style="{StaticResource AppSliderStyle}"
                     TickFrequency="0.05"
                     Width="100"
-                    SmallChange="0.1"
-                    Interval="100"
                     x:Name="volslider"
                     Background="Transparent"
                     Foreground="#f1f2f2"
+                    Style="{StaticResource AppSliderStyle}"
+                    SmallChange="0.1"
                     Margin="0 5 0 0"
                     HorizontalAlignment="Left"
-                    Keyboard.KeyDown="Window_KeyDown"
                     Value="{Binding ElementName=playerr, Path=Volume, Mode=TwoWay}"
                     />
+
+
+
             <TextBlock DockPanel.Dock="Right" Width="125"/>
             <Button Content="⏸"
                     x:Name="pausebtn"
@@ -248,7 +244,7 @@
                     Click="Pause_Click"
                     Background="Transparent"
                     Foreground="#f1f2f3">
-                    
+
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Setter Property="Background" Value="Transparent"/>
@@ -265,12 +261,11 @@
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter Property="Background" Value="#363637"/>
                             </Trigger>
-                            
+
                         </Style.Triggers>
                     </Style>
                 </Button.Style>
             </Button>
-            
         </DockPanel>
     </Grid>
 </Window>
