@@ -20,30 +20,36 @@ namespace media_player
 
             InitializeComponent();
             
-            try
-            {
-                BitmapImage bitmap = new BitmapImage();
-                bitmap.BeginInit();
-                Uri icon = new Uri("ico.ico", UriKind.Relative);
-                if (File.Exists("ico.ico"))
-                {
-                    bitmap.UriSource = icon;
-                    bitmap.EndInit();
-                    mainwindow.Icon = bitmap;
-                }
-                else
-                {
-                    MessageBox.Show("Error while downloading icon");
-                }
-            }
-            catch
-            {
-                MessageBox.Show("Error while downloading icon");
-            }
+            
             playerr.LoadedBehavior = MediaState.Manual;
             playerr.UnloadedBehavior = MediaState.Manual;
             playerr.Volume = 0.15;
             //Hint.Visibility = Visibility.Hidden;
+
+        }
+
+        public MainWindow(FileInfo file)
+        {
+
+            InitializeComponent();
+
+            
+            playerr.LoadedBehavior = MediaState.Manual;
+            playerr.UnloadedBehavior = MediaState.Manual;
+            playerr.Volume = 0.15;
+            try
+            {
+                playerr.Source = new Uri(file.FullName);
+                playerr.Position = TimeSpan.Zero;
+                playerr.Play();
+                Hint.Visibility = Visibility.Hidden;
+                MessageBox.Show("alloha");
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            Hint.Visibility = Visibility.Hidden;
 
         }
 
