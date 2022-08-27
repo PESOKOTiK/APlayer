@@ -18,11 +18,13 @@ namespace media_player
                 {
                     MessageBox.Show("File yes");
                     MainWindow window = new MainWindow(file);
+                    window.Show();
                 }
                 else
                 {
                     MessageBox.Show("Fileno");
                     MainWindow window = new MainWindow();
+                    window.Show();
                 }
             }
             
