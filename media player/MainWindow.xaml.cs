@@ -43,7 +43,6 @@ namespace media_player
                 playerr.Position = TimeSpan.Zero;
                 playerr.Play();
                 Hint.Visibility = Visibility.Hidden;
-                MessageBox.Show("alloha");
             }
             catch(Exception ex)
             {

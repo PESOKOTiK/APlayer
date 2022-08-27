@@ -13,19 +13,16 @@ namespace media_player
             if (e.Args.Length == 1)
             {
                 var file = new FileInfo(e.Args[0]);
-                MessageBox.Show(file.FullName.ToString());
                 if (file.Exists)
                 {
-                    MessageBox.Show("File yes");
                     MainWindow window = new MainWindow(file);
                     window.Show();
                 }
-                else
-                {
-                    MessageBox.Show("Fileno");
-                    MainWindow window = new MainWindow();
-                    window.Show();
-                }
+            }
+            else
+            {
+                MainWindow window = new MainWindow();
+                window.Show();
             }
             
         }
