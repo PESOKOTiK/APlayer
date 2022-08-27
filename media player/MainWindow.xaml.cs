@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
 using System.Windows.Media.Imaging;
+using System.IO;
 
 namespace media_player
 {
@@ -18,18 +19,26 @@ namespace media_player
         {
 
             InitializeComponent();
+            
             try
             {
                 BitmapImage bitmap = new BitmapImage();
                 bitmap.BeginInit();
-                Uri icon = new Uri("ico.ico", UriKind.RelativeOrAbsolute);
-                bitmap.UriSource = icon;
-                bitmap.EndInit();
-                mainwindow.Icon = bitmap;
+                Uri icon = new Uri("ico.ico", UriKind.Relative);
+                if (File.Exists("ico.ico"))
+                {
+                    bitmap.UriSource = icon;
+                    bitmap.EndInit();
+                    mainwindow.Icon = bitmap;
+                }
+                else
+                {
+                    MessageBox.Show("Error while downloading icon");
+                }
             }
-            catch (Exception ex)
+            catch
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show("Error while downloading icon");
             }
             playerr.LoadedBehavior = MediaState.Manual;
             playerr.UnloadedBehavior = MediaState.Manual;
