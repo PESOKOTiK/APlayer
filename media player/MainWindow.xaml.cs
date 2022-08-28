@@ -258,6 +258,19 @@ namespace media_player
             }
         }
 
+        private void playerr_MediaEnded(object sender, RoutedEventArgs e)
+        {
+            if(isvid)
+            {
+                if(playerr.HasVideo)
+                {
+                    if(playerr.NaturalDuration.HasTimeSpan)
+                    {
+                        dura.Value = 0;
+                    }
+                }
+            }
+        }
     }
 }
 
