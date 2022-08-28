@@ -92,7 +92,7 @@ namespace media_player
             if (e.RightButton == MouseButtonState.Pressed)
             {
                 OpenFileDialog openFileDialog = new OpenFileDialog();
-                openFileDialog.Filter = "mp4 videos|*.mp4|mp3 audio|*.mp3|jpg images|*.jpg|png images|*.png|avi videos|*.avi|mkv videos|*.mkv|All files (*.*)|*.*";
+                openFileDialog.Filter = "All files (*.*)|*.*|videos|*.mp4;*.avi;*.mkv;*.mov|audios|*.mp3;*.vaw;*.ogg|images|*.jpg;*.png";
                 openFileDialog.ShowDialog();
                 try
                 {
@@ -270,7 +270,19 @@ namespace media_player
             }
         }
 
-       
+        private void playerr_MediaEnded(object sender, RoutedEventArgs e)
+        {
+            if(isvid)
+            {
+                if(playerr.HasVideo)
+                {
+                    if(playerr.NaturalDuration.HasTimeSpan)
+                    {
+                        dura.Value = 0;
+                    }
+                }
+            }
+        }
     }
 }
 

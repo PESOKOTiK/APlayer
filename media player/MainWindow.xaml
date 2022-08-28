@@ -57,6 +57,7 @@
                    Foreground="#454545" FontSize="25"/>
         <MediaElement x:Name="playerr"
                       Grid.Row="1"
+                      MediaEnded="playerr_MediaEnded"
                       Keyboard.KeyDown="Window_KeyDown"
                       MediaOpened="playerr_MediaOpened"
                       ToolTip="press right mouse button to open new video"
