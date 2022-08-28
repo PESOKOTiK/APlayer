@@ -74,6 +74,18 @@ namespace media_player
             }
         }
 
+        private void themeswitch_Click(object sender, RoutedEventArgs e)
+        {
+            if (themeswitch.Content == "☽")
+            {
+                themeswitch.Content = "🔅";
+            }
+            else
+            {
+                themeswitch.Content = "☽";
+            }
+        }
+
 
         private void playerr_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -258,6 +270,7 @@ namespace media_player
             }
         }
 
+       
     }
 }
 
