@@ -6,82 +6,17 @@
         xmlns:local="clr-namespace:media_player"
         x:Name="mainwindow"
         mc:Ignorable="d"
-        Height="450" Width="800" Background="#121215"
+        Height="450" Width="800" 
         WindowStyle="None"
+        Style="{StaticResource windstyle}"
         ResizeMode="CanResizeWithGrip"
         AllowsTransparency="True"
         MouseDown="playerr_MouseDown"
         Keyboard.KeyDown="Window_KeyDown"
         MouseLeftButtonDown="DockPanel_MouseLeftButtonDown">
-    <Window.Resources>
-        <Style x:Key="SliderThumbStyle" TargetType="Thumb">
-            <Setter Property="SnapsToDevicePixels" Value="true"/>
-            <Setter Property="OverridesDefaultStyle" Value="false"/>
-            <Setter Property="Height" Value="18"/>
-            <Setter Property="Width" Value="18"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Thumb">
-                        <Ellipse  Stroke="Black"
-                          StrokeThickness="1"
-                          Name="Ellipse" 
-                          Fill="#010113" />
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Ellipse" Property="Fill" Value="#121213"/>
-                            </Trigger>
-                            <Trigger Property="IsEnabled" Value="false">
-                                <Setter TargetName="Ellipse" Property="Fill" Value="Gray"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <Style TargetType="Slider" x:Key="AppSliderStyle">
-            <Setter Property="OverridesDefaultStyle" Value="true"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Slider">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="auto" />
-                                <RowDefinition Height="auto" Name="row" />
-                                <RowDefinition Height="auto" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="auto" />
-                                <ColumnDefinition Width="*" Name="column" />
-                                <ColumnDefinition Width="auto" />
-                            </Grid.ColumnDefinitions>
-                            <Border Name="PART_Border"
-                           BorderBrush="Black" BorderThickness="1"
-                           Padding="2"
-                          Grid.Row="1" Grid.Column="1"
-                           Width="{TemplateBinding Width}"
-                           Height="{TemplateBinding Height}"
-                           Background="#fafaf3"
-                           HorizontalAlignment="Stretch"
-                           VerticalAlignment="Center" />
-                            <Track Name="PART_Track"
-                              HorizontalAlignment="Stretch"
-                              VerticalAlignment="Center"
-                              Grid.Row="1" Grid.Column="1"
-                              Width="{TemplateBinding Width}"
-                              Height="{TemplateBinding Height}">
-                                <Track.Thumb>
-                                    <Thumb Style="{StaticResource SliderThumbStyle}" />
-                                </Track.Thumb>
-                            </Track>
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </Window.Resources>
     <Grid Keyboard.KeyDown="Window_KeyDown"
-          x:Name="WindowWidth">
+          x:Name="WindowWidth"
+          Margin="5">
         <Grid.RowDefinitions>
             <RowDefinition Height="30"></RowDefinition>
             <RowDefinition x:Name="Gridd"></RowDefinition>
@@ -92,30 +27,8 @@
             <Button DockPanel.Dock="Right"
                     Content=" |X|"
                     Margin="10 0"
-                    Background="Transparent"
-                    Foreground="#f1f2f3"
-                    BorderBrush="Transparent"
-                    Click="Close_Click">
-                <Button.Style>
-                    <Style TargetType="{x:Type Button}">
-                        <Setter Property="Background" Value="Transparent"/>
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type Button}">
-                                    <Border Background="{TemplateBinding Background}">
-                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                    </Border>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#363637"/>
-                            </Trigger>
-
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
+                    Click="Close_Click"
+                    Style="{StaticResource btnstyle}">
             </Button>
             <TextBlock Background="Transparent"
                        Foreground="#a2a2a3"
@@ -124,31 +37,17 @@
             </TextBlock>
             <Button DockPanel.Dock="Right"
                     Content="⛶"
-                    Background="Transparent"
-                    Foreground="#f1f2f3"
-                    BorderBrush="Transparent"
                     x:Name="fscr"
-                    Click="FullScreen_Click">
-                <Button.Style>
-                    <Style TargetType="{x:Type Button}">
-                        <Setter Property="Background" Value="Transparent"/>
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type Button}">
-                                    <Border Background="{TemplateBinding Background}">
-                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                    </Border>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#363637"/>
-                            </Trigger>
+                    Click="FullScreen_Click"
+                    Style="{StaticResource btnstyle}">
+               
+            </Button>
+            <Button DockPanel.Dock="Right"
+                    x:Name="themeswitch"
+                    Click="themeswitch_Click"
+                    Margin="10 0"
+                    Style="{StaticResource btnstyle}">
 
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
             </Button>
         </DockPanel>
         <TextBlock Grid.Row="1" x:Name="Hint"
@@ -171,11 +70,11 @@
             <TextBlock DockPanel.Dock="Right"
                        x:Name="maxTime"
                        Width="55"
-                       Foreground="#f2f2f3"/>
+                       Style="{StaticResource txtblack}"/>
             <TextBlock DockPanel.Dock="Left"
                        x:Name="curTime"
                        Width="55"
-                       Foreground="#f2f2f3"
+                       Style="{StaticResource txtblack}"
                        />
             <Slider
                 Minimum="0"
@@ -184,43 +83,22 @@
                 TickPlacement="BottomRight"
                 SmallChange="5"
                 Interval="100"
-                Style="{StaticResource AppSliderStyle}"
+                Style="{StaticResource blackslider}"
                 Keyboard.KeyDown="Window_KeyDown"
                 ValueChanged="dura_ValueChanged"></Slider>
         </DockPanel>
-        <DockPanel Grid.Row="3">
+        <DockPanel Grid.Row="3" Margin="5 0">
             <Button Content="🔄"
                     x:Name="rebtn"
                     HorizontalAlignment="Center"
                     Click="rebtn_Click"
-                    Background="Transparent"
-                    Foreground="#f1f2f3">
-                <Button.Style>
-                    <Style TargetType="{x:Type Button}">
-                        <Setter Property="Background" Value="Transparent"/>
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type Button}">
-                                    <Border Background="{TemplateBinding Background}">
-                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                    </Border>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#363637"/>
-                            </Trigger>
-
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
+                    Style="{StaticResource btnstyle}">
             </Button>
             <TextBlock FontSize="20" Text="|"
                        Foreground="#232323"
                        Margin="10 0 5 0"/>
             <TextBlock FontSize="20" Text="🔈"
-                       Foreground="#f2f2f3"
+                       Style="{StaticResource txtblack}"
                        Margin="10 0 0 0"/>
             <Slider Maximum="1"
                     Minimum="0"
@@ -229,7 +107,7 @@
                     x:Name="volslider"
                     Background="Transparent"
                     Foreground="#f1f2f2"
-                    Style="{StaticResource AppSliderStyle}"
+                    Style="{StaticResource blackslider}"
                     SmallChange="0.1"
                     Margin="0 5 0 0"
                     HorizontalAlignment="Left"
@@ -243,29 +121,8 @@
                     x:Name="pausebtn"
                     HorizontalAlignment="Center"
                     Click="Pause_Click"
-                    Background="Transparent"
-                    Foreground="#f1f2f3">
+                    Style="{StaticResource btnstyle}">
 
-                <Button.Style>
-                    <Style TargetType="{x:Type Button}">
-                        <Setter Property="Background" Value="Transparent"/>
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type Button}">
-                                    <Border Background="{TemplateBinding Background}">
-                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                    </Border>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#363637"/>
-                            </Trigger>
-
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
             </Button>
         </DockPanel>
     </Grid>
