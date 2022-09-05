@@ -15,6 +15,13 @@ namespace media_player
     /// </summary>
     public partial class MainWindow : Window
     {
+        bool isvid = false;
+        //is video loaded to player?
+        private TimeSpan TotalTime;
+        //duration of the video
+        bool ismax = false;
+        //is fullscreen?
+
         public MainWindow()
         {
 
@@ -24,6 +31,7 @@ namespace media_player
             playerr.LoadedBehavior = MediaState.Manual;
             playerr.UnloadedBehavior = MediaState.Manual;
             playerr.Volume = 0.15;
+            
             //Hint.Visibility = Visibility.Hidden;
 
         }
@@ -53,12 +61,7 @@ namespace media_player
         }
 
 
-        bool isvid = false;
-        //is video loaded to player?
-        private TimeSpan TotalTime;
-        //duration of the video
-        bool ismax = false;
-        //is fullscreen?
+        
         private void Pause_Click(object sender, RoutedEventArgs e)
         {
             if (pausebtn.Content == "▶")
@@ -184,12 +187,16 @@ namespace media_player
                 this.WindowState = WindowState.Maximized;
                 ismax = true;
                 fscr.Content = "⸬";
+                botrow1.Height = new GridLength(0.0, GridUnitType.Pixel);
+                botrow2.Height = new GridLength(0.0, GridUnitType.Pixel);
             }
             else
             {
                 this.WindowState = WindowState.Normal;
                 ismax = false;
                 fscr.Content = "⛶";
+                botrow1.Height = new GridLength(30.0, GridUnitType.Pixel);
+                botrow2.Height = new GridLength(30.0, GridUnitType.Pixel);
             }
         }
 

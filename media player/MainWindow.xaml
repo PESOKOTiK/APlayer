@@ -16,14 +16,16 @@
         MouseLeftButtonDown="DockPanel_MouseLeftButtonDown">
     <Grid Keyboard.KeyDown="Window_KeyDown"
           x:Name="WindowWidth"
-          Margin="5">
+          Margin="0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition x:Name="toprow" Height="30"></RowDefinition>
             <RowDefinition x:Name="Gridd"></RowDefinition>
-            <RowDefinition Height="30"></RowDefinition>
-            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition x:Name="botrow1" Height="30"></RowDefinition>
+            <RowDefinition x:Name="botrow2" Height="30"></RowDefinition>
         </Grid.RowDefinitions>
-        <DockPanel LastChildFill="False" MouseLeftButtonDown="DockPanel_MouseLeftButtonDown">
+        <DockPanel LastChildFill="False"
+                   MouseLeftButtonDown="DockPanel_MouseLeftButtonDown"
+                   x:Name="toppanel">
             <Button DockPanel.Dock="Right"
                     Content=" |X|"
                     Margin="10 0"
@@ -66,7 +68,8 @@
 
 
         </MediaElement >
-        <DockPanel Grid.Row="2">
+        <DockPanel Grid.Row="2"
+                   x:Name="botpanel1">
             <TextBlock DockPanel.Dock="Right"
                        x:Name="maxTime"
                        Width="55"
@@ -87,7 +90,8 @@
                 Keyboard.KeyDown="Window_KeyDown"
                 ValueChanged="dura_ValueChanged"></Slider>
         </DockPanel>
-        <DockPanel Grid.Row="3" Margin="5 0">
+        <DockPanel Grid.Row="3" Margin="5 0"
+                   x:Name="botpanel2">
             <Button Content="🔄"
                     x:Name="rebtn"
                     HorizontalAlignment="Center"
