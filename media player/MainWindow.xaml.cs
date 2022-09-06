@@ -64,7 +64,7 @@ namespace media_player
         
         private void Pause_Click(object sender, RoutedEventArgs e)
         {
-            if (pausebtn.Content == "▶")
+            if ((string)pausebtn.Content == "▶")
             {
                 pausebtn.Content = "⏸";
                 playerr.Play();
@@ -79,7 +79,7 @@ namespace media_player
 
         private void themeswitch_Click(object sender, RoutedEventArgs e)
         {
-            if (themeswitch.Content == "☽")
+            if ((string)themeswitch.Content == "☽")
             {
                 themeswitch.Content = "🔅";
             }
@@ -137,7 +137,7 @@ namespace media_player
                 // Create a timer that will update the counters and the time slider
                 var timerVideoTime = new DispatcherTimer();
                 timerVideoTime.Interval = TimeSpan.FromSeconds(1);
-                timerVideoTime.Tick += new EventHandler(timer_Tick);
+                timerVideoTime.Tick += new EventHandler(timer_Tick!);
                 timerVideoTime.Start();
             }
 
@@ -227,7 +227,7 @@ namespace media_player
                 }
                 if (e.Key == Key.Space)
                 {
-                    if (pausebtn.Content == "▶")
+                    if ((string)pausebtn.Content == "▶")
                     {
                         pausebtn.Content = "⏸";
                         playerr.Play();
