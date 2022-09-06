@@ -187,6 +187,8 @@ namespace media_player
                 this.WindowState = WindowState.Maximized;
                 ismax = true;
                 fscr.Content = "⸬";
+                playerr.ToolTip = null;
+                toprow.Height = new GridLength(0.0, GridUnitType.Pixel);
                 botrow1.Height = new GridLength(0.0, GridUnitType.Pixel);
                 botrow2.Height = new GridLength(0.0, GridUnitType.Pixel);
             }
@@ -195,6 +197,8 @@ namespace media_player
                 this.WindowState = WindowState.Normal;
                 ismax = false;
                 fscr.Content = "⛶";
+                playerr.ToolTip = "press right mouse button to open new video";
+                toprow.Height = new GridLength(30.0, GridUnitType.Pixel);
                 botrow1.Height = new GridLength(30.0, GridUnitType.Pixel);
                 botrow2.Height = new GridLength(30.0, GridUnitType.Pixel);
             }
@@ -273,6 +277,19 @@ namespace media_player
                     {
                         volslider.Value = 1;
                     }
+                }
+            }
+            if(ismax)
+            {
+                if(e.Key==Key.Escape)
+                {
+                    this.WindowState = WindowState.Normal;
+                    ismax = false;
+                    fscr.Content = "⛶";
+                    playerr.ToolTip = "press right mouse button to open new video";
+                    toprow.Height = new GridLength(30.0, GridUnitType.Pixel);
+                    botrow1.Height = new GridLength(30.0, GridUnitType.Pixel);
+                    botrow2.Height = new GridLength(30.0, GridUnitType.Pixel);
                 }
             }
         }
